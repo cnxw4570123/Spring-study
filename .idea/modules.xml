@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RestTemplate.iml" filepath="$PROJECT_DIR$/RestTemplate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-resttemplate-client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-resttemplate-client.main.iml" />
     </modules>
   </component>
 </project>

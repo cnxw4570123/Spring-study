@@ -10,7 +10,7 @@ import java.util.List;
 public class ItemResponseDto {
 	private final List<Item> items = new ArrayList<>();
 
-	public void setItems(Item item) {
+	public void addItem(Item item) {
 		items.add(item);
 	}
 }

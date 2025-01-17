@@ -4,6 +4,8 @@ import com.sparta.springresttemplateserver.dto.ItemResponseDto;
 import com.sparta.springresttemplateserver.dto.UserRequestDto;
 import com.sparta.springresttemplateserver.entity.Item;
 import com.sparta.springresttemplateserver.service.ItemService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +19,12 @@ public class ItemController {
 	}
 
 	@GetMapping("/get-call-obj")
-	public Item getCallObject(@RequestParam String query) {
-		return itemService.getCallObject(query);
+	public ResponseEntity<Item> getCallObject(@RequestParam String query) {
+		Item item = itemService.getCallObject(query);
+		if(item == null){
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(item);
 	}
 
 	@GetMapping("/get-call-list")

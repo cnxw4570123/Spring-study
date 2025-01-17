@@ -2,6 +2,8 @@ package com.sparta.springresttemplateclient.controller;
 
 import com.sparta.springresttemplateclient.dto.ItemDto;
 import com.sparta.springresttemplateclient.service.RestTemplateService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ public class RestTemplateController {
 	}
 
 	@GetMapping("/get-call-obj")
-	public ItemDto getCallObject(String query) {
+	public ResponseEntity<ItemDto> getCallObject(String query) {
 		return restTemplateService.getCallObject(query);
 	}
 
