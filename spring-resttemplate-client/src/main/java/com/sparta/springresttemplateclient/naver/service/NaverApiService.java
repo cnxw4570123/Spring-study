@@ -8,9 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -43,19 +46,26 @@ public class NaverApiService {
 			.encode()
 			.build()
 			.toUri();
-		log.info("uri = " + uri);
+		log.info("uri = {}", uri);
 
-		RequestEntity<Void> requestEntity = RequestEntity
-			.get(uri)
-			.header("X-Naver-Client-Id", clientId)
-			.header("X-Naver-Client-Secret", clientSecret)
+		RestClient build = RestClient.builder()
+			.requestFactory(new HttpComponentsClientHttpRequestFactory())
+			.baseUrl(uri)
 			.build();
 
-		ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);
+		return build.get()
+			.headers(httpHeaders -> {
+				httpHeaders.set("X-Naver-Client-Id", clientId);
+				httpHeaders.set("X-Naver-Client-Secret", clientSecret);
+			}).exchange((req, res) -> {
+				if (res.getStatusCode().is4xxClientError()) {
+					throw new RuntimeException(res.getStatusCode() + " " + res.getHeaders());
+				}
+				String entity = res.bodyTo(String.class);
+				log.info("NAVER API Status Code : {}", res.getStatusCode());
+				return fromJSONtoItems(entity);
+			});
 
-		log.info("NAVER API Status Code : " + responseEntity.getStatusCode());
-
-		return fromJSONtoItems(responseEntity.getBody());
 	}
 
 	public List<ItemDto> fromJSONtoItems(String responseEntity) {
