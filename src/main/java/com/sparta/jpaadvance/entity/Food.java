@@ -18,15 +18,6 @@ public class Food {
 	private String name;
 	private double price;
 
-	@ManyToMany
-	@JoinTable(name = "orders",
-		joinColumns = @JoinColumn(name = "food_id"), // 현재 엔티티 입장에서의 조인할 컬럼
-		inverseJoinColumns = @JoinColumn(name = "user_id") // 상대 엔티티 입장에서의 조인할 컬럼
-	)
-	private List<User> userList = new ArrayList<>();
-
-	public void addUserList(User user) {
-		this.userList.add(user); // 외래 키(연관 관계) 설정
-		user.getFoodList().add(this);
-	}
+	@OneToMany(mappedBy = "food")
+	private List<Order> orderList = new ArrayList<>();
 }
