@@ -18,7 +18,10 @@ public class Food {
 	private String name;
 	private double price;
 
-	@OneToMany
-	@JoinColumn(name = "food_id") // users 테이블에 food_id 컬럼
+	@ManyToMany
+	@JoinTable(name = "orders",
+		joinColumns = @JoinColumn(name = "food_id"), // 현재 엔티티 입장에서의 조인할 컬럼
+		inverseJoinColumns = @JoinColumn(name = "user_id") // 상대 엔티티 입장에서의 조인할 컬럼
+	)
 	private List<User> userList = new ArrayList<>();
 }
