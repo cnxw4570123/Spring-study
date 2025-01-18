@@ -1,7 +1,5 @@
 package com.sparta.jpaadvance.relation;
 
-import java.util.List;
-
 import com.sparta.jpaadvance.entity.Food;
 import com.sparta.jpaadvance.entity.User;
 import com.sparta.jpaadvance.repository.FoodRepository;
@@ -58,5 +56,4 @@ public class OneToManyTest {
 		// 	System.out.println("user.getName() = " + user.getName());
 		// }
 	}
-
 }
