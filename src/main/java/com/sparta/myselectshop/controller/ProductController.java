@@ -15,6 +15,7 @@ import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.service.ProductService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,9 +30,9 @@ public class ProductController {
 	}
 
 	@PutMapping("/products/{id}")
-	public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
+	public ProductResponseDto updateProduct(@PathVariable Long id,
+		@Valid @RequestBody ProductMypriceRequestDto requestDto) {
 		return productService.updateProduct(id, requestDto);
-
 	}
 
 	@GetMapping("/products")
