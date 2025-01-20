@@ -300,7 +300,7 @@ function addFolder() {
 }
 
 function addProductItem(product) {
-    const folders = product.productFolderList.map(folder =>
+    const folders = product.productFolders.map(folder =>
         `
             <span onclick="openFolder(${folder.id})">
                 #${folder.name}
