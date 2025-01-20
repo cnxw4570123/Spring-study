@@ -52,6 +52,7 @@ public class ProductService {
 		product.updateByItemDto(itemDto);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<ProductResponseDto> getAllProducts() {
 		List<Product> products = productRepository.findAll();
 
