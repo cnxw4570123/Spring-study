@@ -1,14 +1,21 @@
 package com.sparta.myselectshop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "users")
 public class User {
 	@Id
@@ -28,10 +35,29 @@ public class User {
 	@Enumerated(value = EnumType.STRING)
 	private UserRoleEnum role;
 
-	public User(String username, String password, String email, UserRoleEnum role) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.role = role;
+	private Long kakaoId;
+
+	public static User ofUsernameAndPassword(String username, String password, String email, UserRoleEnum role) {
+		return new UserBuilder()
+			.username(username)
+			.password(password)
+			.email(email)
+			.role(role)
+			.build();
+	}
+
+	public static User ofKakao(String username, String password, String email, UserRoleEnum role, Long kakaoId) {
+		return new UserBuilder()
+			.username(username)
+			.password(password)
+			.email(email)
+			.role(role)
+			.kakaoId(kakaoId)
+			.build();
+	}
+
+	public User kakaoIdUpdate(Long kakaoId) {
+		this.kakaoId = kakaoId;
+		return this;
 	}
 }

@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.HttpCookie;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,9 +87,9 @@ public class UserController {
 	public String kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
 		String token = kakaoService.kakaoLogin(code);
 
-		Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, token);
+		Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, token.substring(7));
 		cookie.setPath("/");
-		response.setHeader("Set-Cookie", cookie.toString());
+		response.addCookie(cookie);
 
 		return "redirect:/";
 	}

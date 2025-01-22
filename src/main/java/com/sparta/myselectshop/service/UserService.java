@@ -47,7 +47,7 @@ public class UserService {
 		}
 
 		// 사용자 등록
-		User user = new User(username, password, email, role);
+		User user = User.ofUsernameAndPassword(username, password, email, role);
 		userRepository.save(user);
 	}
 }
