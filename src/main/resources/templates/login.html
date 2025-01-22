@@ -16,7 +16,22 @@
 <body>
 <div id="login-form">
     <div id="login-title">Log into Select Shop</div>
-    <br>
+    <!-- 카카오로 로그인 버튼 -->
+    <script th:inline="javascript">
+        // 버튼 클릭 시 JavaScript에서 데이터 속성을 읽어 처리
+        function loginKakao() {
+            const clientId = document.getElementById("login-kakao-btn").dataset.clientId;
+            const redirectUri = 'http://localhost:8080/api/user/kakao/callback';
+            const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+            window.location.href = kakaoAuthUrl;
+        }
+    </script>
+    <button id="login-kakao-btn"
+            th:data-client-id="${@environment.getProperty('kakao.REST_API_KEY')}"
+            onclick="loginKakao()"
+    >
+        카카오로 로그인하기
+    </button>
     <button id="login-id-btn" onclick="location.href='/api/user/signup'">
         회원 가입하기
     </button>
