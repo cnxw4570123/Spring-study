@@ -95,4 +95,13 @@ public class ProductService {
 
 		productFolderRepository.save(new ProductFolder(product, folder));
 	}
+
+	public Page<ProductResponseDto> getProductsInFolder(Long folderId, int page, int size, String sortBy, boolean isAsc,
+		User user) {
+		Pageable pageable = PageRequest.of(page, size,
+			Sort.by(isAsc ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
+
+		return productRepository.findAllByUserAndProductFolders_FolderId(
+			user, folderId, pageable).map(ProductResponseDto::new);
+	}
 }
