@@ -1,9 +1,11 @@
 package com.sparta.myselectshop.service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import com.sparta.myselectshop.entity.Product;
 import com.sparta.myselectshop.entity.ProductFolder;
 import com.sparta.myselectshop.entity.User;
 import com.sparta.myselectshop.entity.UserRoleEnum;
+import com.sparta.myselectshop.exception.ProductNotFoundException;
 import com.sparta.myselectshop.naver.dto.ItemDto;
 import com.sparta.myselectshop.repository.FolderRepository;
 import com.sparta.myselectshop.repository.ProductFolderRepository;
@@ -33,6 +36,7 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	private final FolderRepository folderRepository;
 	private final ProductFolderRepository productFolderRepository;
+	private final MessageSource messageSource;
 
 	public ProductResponseDto createProduct(ProductRequestDto requestDto, User user) {
 		Product product = productRepository.save(new Product(requestDto, user));
@@ -42,7 +46,13 @@ public class ProductService {
 	@Transactional
 	public ProductResponseDto updateProduct(Long id, ProductMypriceRequestDto requestDto) {
 		Product product = productRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("해당 상품을 찾을 수 없습니다."));
+			.orElseThrow(() -> new ProductNotFoundException(
+				messageSource.getMessage("not.found.product",
+						null,
+					"Not Found Product",
+					Locale.getDefault()
+					)
+			));
 
 		product.update(requestDto);
 		return new ProductResponseDto(product);

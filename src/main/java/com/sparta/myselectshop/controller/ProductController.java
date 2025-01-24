@@ -2,6 +2,7 @@ package com.sparta.myselectshop.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +35,12 @@ public class ProductController {
 
 	@PutMapping("/products/{id}")
 	public ProductResponseDto updateProduct(@PathVariable Long id,
-		@Valid @RequestBody ProductMypriceRequestDto requestDto) {
+		@Valid @RequestBody ProductMypriceRequestDto requestDto, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()){
+			throw new IllegalArgumentException(bindingResult.getFieldErrors("myprice").toString());
+		}
 		return productService.updateProduct(id, requestDto);
+
 	}
 
 	@GetMapping("/products")
