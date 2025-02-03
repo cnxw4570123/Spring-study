@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.MessageSource;
 
 import com.sparta.myselectshop.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
@@ -52,6 +53,9 @@ class ProductServiceTest {
 	@Mock
 	ProductFolderRepository productFolderRepository;
 
+	@Mock
+	MessageSource messageSource;
+
 	@Test
 	@DisplayName("관심 상품 희망가 - 최저가 이상으로 변경")
 	void test1() {
@@ -73,7 +77,7 @@ class ProductServiceTest {
 		Product product = new Product(requestProductDto, user);
 
 		ProductService productService = new ProductService(productRepository, folderRepository,
-			productFolderRepository);
+			productFolderRepository, messageSource);
 
 		given(productRepository.findById(productId)).willReturn(Optional.of(product));
 
