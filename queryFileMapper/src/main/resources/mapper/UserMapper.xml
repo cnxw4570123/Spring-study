@@ -1,0 +1,8 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sparta.queryfilemapper.mapper.UserMapper">
+    <select id="selectUserById" resultType="User">
+        select id, name from users where id = #{id}
+    </select>
+</mapper>
