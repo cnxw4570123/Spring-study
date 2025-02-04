@@ -69,7 +69,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.JdbcApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "jdbc",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -108,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1738581511090</updated>
       <workItem from="1738581512254" duration="857000" />
-      <workItem from="1738582380448" duration="7545000" />
+      <workItem from="1738582380448" duration="10838000" />
     </task>
     <servers />
   </component>
