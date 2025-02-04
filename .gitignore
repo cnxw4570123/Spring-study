@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -17,3 +17,4 @@ out/
 **/build/
 **/.build/
 **/src/main/resources/application.yml
+
