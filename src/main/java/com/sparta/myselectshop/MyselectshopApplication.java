@@ -5,10 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.sparta.myselectshop.config.KakaoProperty;
 import com.sparta.myselectshop.naver.config.NaverApiProperty;
 
 @SpringBootApplication
-@EnableConfigurationProperties(NaverApiProperty.class)
+@EnableConfigurationProperties({NaverApiProperty.class, KakaoProperty.class})
 @EnableScheduling
 public class MyselectshopApplication {
 

@@ -3,6 +3,7 @@ package com.sparta.myselectshop.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.myselectshop.config.KakaoProperty;
 import com.sparta.myselectshop.dto.KakaoUserInfoDto;
 import com.sparta.myselectshop.entity.User;
 import com.sparta.myselectshop.entity.UserRoleEnum;
@@ -12,6 +13,7 @@ import com.sparta.myselectshop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
@@ -28,17 +30,25 @@ import java.util.UUID;
 
 @Slf4j(topic = "KAKAO Login")
 @Service
-@RequiredArgsConstructor
 public class KakaoService {
 
 	private final PasswordEncoder passwordEncoder;
 	private final UserRepository userRepository;
 	private final RestTemplate restTemplate;
 	private final JwtUtil jwtUtil;
-	@Value("${kakao.REST_API_KEY}")
-	private String REST_API_KEY;
-	@Value("${kakao.REDIRECT_URI}")
-	private String REDIRECT_URI;
+	private final String REST_API_KEY;
+	private final String REDIRECT_URI;
+
+	@Autowired
+	public KakaoService(PasswordEncoder passwordEncoder, UserRepository userRepository, RestTemplate restTemplate,
+		JwtUtil jwtUtil, KakaoProperty kakaoProperty) {
+		this.passwordEncoder = passwordEncoder;
+		this.userRepository = userRepository;
+		this.restTemplate = restTemplate;
+		this.jwtUtil = jwtUtil;
+		this.REST_API_KEY = kakaoProperty.getRESTAPI_KEY();
+		this.REDIRECT_URI = kakaoProperty.getREDIRECT_URI();
+	}
 
 	public String kakaoLogin(String code) throws JsonProcessingException {
 		// 1. "인가 코드"로 "액세스 토큰" 요청
