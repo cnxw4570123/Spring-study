@@ -21,13 +21,14 @@
         // 버튼 클릭 시 JavaScript에서 데이터 속성을 읽어 처리
         function loginKakao() {
             const clientId = document.getElementById("login-kakao-btn").dataset.clientId;
-            const redirectUri = 'http://localhost:8080/api/user/kakao/callback';
+            const redirectUri = document.getElementById("login-kakao-btn").dataset.redirectUri;
             const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
             window.location.href = kakaoAuthUrl;
         }
     </script>
     <button id="login-kakao-btn"
             th:data-client-id="${@environment.getProperty('kakao.REST_API_KEY')}"
+            th:data-redirect-uri="${@environment.getProperty('kakao.REDIRECT_URI')}"
             onclick="loginKakao()"
     >
         카카오로 로그인하기
