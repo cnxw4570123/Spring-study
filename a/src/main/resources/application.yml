@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: a
+
+server:
+  port: 18080
+
+service:
+  b:
+    url: http://localhost:18081
