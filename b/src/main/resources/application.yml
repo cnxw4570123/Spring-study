@@ -3,4 +3,4 @@ spring:
     name: "service-b"
 
 server:
-  port: 18081
+  port: 8080
