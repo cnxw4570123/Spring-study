@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: order
+
+# \uC2A4\uD504\uB9C1 rabbitMQ \uC124\uC815
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+
+# \uC784\uC758\uB85C \uB123\uC5B4\uC900 \uD050 \uAD00\uB828 \uC124\uC815
+message:
+  exchange: market
+  queue:
+    product: market.product
+    payment: market.payment
